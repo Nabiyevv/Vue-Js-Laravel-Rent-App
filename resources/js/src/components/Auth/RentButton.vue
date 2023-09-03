@@ -34,37 +34,4 @@ export default {
     <LoginForm v-if="isMenuActive" @closeLogin="isMenuActive  = false" @openRegister="isRegisterActive = true"/>
     <RegisterForm v-if="isRegisterActive " @closeRegister="isRegisterActive = false" @openLogin="isMenuActive  = true" />
     <RentItem v-if="isMenuActive && token" @closeLogin="isMenuActive = false"/>
-    <!-- {{console.log("🚀 ~ file: RentButton.vue:35 ~ isMenuActive:", isMenuActive)}} -->
-
 </template>
-
-<style>
-/* @keyframes fade-in-up {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 1000px, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-.fade-in-up {
-    animation: fade-in-up 0.5s ease;
-}
-@keyframes fade-in-down {
-    from {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        opacity: 0;
-        transform: translate3d(0, 2000px, 0);
-    }
-}
-
-.fade-in-down {
-    animation: fade-in-up 0.5s ease;
-} */
-</style>
