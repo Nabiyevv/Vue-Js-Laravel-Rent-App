@@ -5,11 +5,11 @@
 
             <!-- Dropdown menu -->
             <div
-                class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-gray-100 rounded-md shadow-xl dark:bg-gray-800"
+                class=" absolute right-0 z-20 w-56 pt-2 mt-2 overflow-hidden bg-gray-100 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.4)] dark:bg-gray-800"
             >
                 <a
                     href="#"
-                    class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                     <img
                         class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9 dark:invert"
@@ -32,20 +32,20 @@
 
                 <RouterLink
                     to="/profile"
-                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                     view profile
                 </RouterLink>
 
                 <button
-                    class="cursor-pointer text-left inline-block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="cursor-pointer text-left inline-block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                     @click="toggleTheme"
                 >
                     {{ isDark ? "Dark" : "Light" }}
                 </button>
 
                 <div
-                    class="cursor-pointer block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                    class="cursor-pointer block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                     @click="logout"
                 >
                     Sign Out
