@@ -155,15 +155,9 @@ export default {
             alertName: this.type,
             userStore:useUserStore(),
             alertTitle:this.title,
+            isVisible:true,
         };
     },
-    // methods:{
-    //     hideAlert(){
-    //         setTimeout(() => {
-    //             this.userStore.showAlert = false
-    //         }, 500)
-    //     }
-    // },
     props:{
         title: {
             type: String,
@@ -174,14 +168,5 @@ export default {
             required: true,
         },
     },
-    created(){
-        if(this.userStore.showAlert)
-        {
-            const data = setTimeout(()=>{
-                this.userStore.showAlert = false;
-                console.log("🚀 ~ file: Alert.vue:182 ~ setTimeout ~ this.userStore.showAlert:", this.userStore.showAlert)
-            },3000);
-        }
-    }
 };
 </script>
