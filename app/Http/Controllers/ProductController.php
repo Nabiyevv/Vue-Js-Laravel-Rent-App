@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         //all(['id','title','image','city']);
         //  $products = Product::select(['id','title','image','city','price'])->paginate();
-        $products = Cache::remember('products',30*30,fn () => Product::select(['id','title','image','city','price'])->paginate());
+        $products = Cache::remember('products',120,fn () => Product::select(['id','title','image','city','price'])->paginate());
         return response()->json(['products'=>$products],Response::HTTP_OK);
     }
 
