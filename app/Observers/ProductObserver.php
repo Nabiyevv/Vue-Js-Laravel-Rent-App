@@ -54,7 +54,8 @@ class ProductObserver
         //
     }
     
-    public function clear_cache(){
+    public function clear_cache() :void
+    {
         Cache::forget('products');
     }
 }
