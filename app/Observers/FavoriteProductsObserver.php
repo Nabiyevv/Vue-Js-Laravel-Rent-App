@@ -2,54 +2,54 @@
 
 namespace App\Observers;
 
-use App\Models\FavoriteProducts;
+use App\Models\FavoriteProduct;
 use Illuminate\Support\Facades\Cache;
 
-class FavoriteProductsObserver
+class FavoriteProductObserver
 {
     // public function __invoke()
     // {
     //     $this->clear_cache();
     // }
     /**
-     * Handle the FavoriteProducts "created" event.
+     * Handle the FavoriteProduct "created" event.
      */
-    public function created(FavoriteProducts $favoriteProducts): void
+    public function created(FavoriteProduct $FavoriteProduct): void
     {
         //
         $this->clear_cache();
     }
     
     /**
-     * Handle the FavoriteProducts "updated" event.
+     * Handle the FavoriteProduct "updated" event.
      */
-    public function updated(FavoriteProducts $favoriteProducts): void
+    public function updated(FavoriteProduct $FavoriteProduct): void
     {
         //
         $this->clear_cache();
     }
     
     /**
-     * Handle the FavoriteProducts "deleted" event.
+     * Handle the FavoriteProduct "deleted" event.
      */
-    public function deleted(FavoriteProducts $favoriteProducts): void
+    public function deleted(FavoriteProduct $FavoriteProduct): void
     {
         //
         $this->clear_cache();
     }
     
     /**
-     * Handle the FavoriteProducts "restored" event.
+     * Handle the FavoriteProduct "restored" event.
      */
-    public function restored(FavoriteProducts $favoriteProducts): void
+    public function restored(FavoriteProduct $FavoriteProduct): void
     {
         //
     }
     
     /**
-     * Handle the FavoriteProducts "force deleted" event.
+     * Handle the FavoriteProduct "force deleted" event.
      */
-    public function forceDeleted(FavoriteProducts $favoriteProducts): void
+    public function forceDeleted(FavoriteProduct $FavoriteProduct): void
     {
         //
     }
