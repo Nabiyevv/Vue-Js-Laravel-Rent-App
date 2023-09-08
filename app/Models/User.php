@@ -52,6 +52,6 @@ class User extends Authenticatable
    
     public function favorite_products() :HasMany
     {
-        return $this->hasMany(FavoriteProducts::class);
+        return $this->hasMany(FavoriteProduct::class);
     }
 }
