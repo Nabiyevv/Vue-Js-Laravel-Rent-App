@@ -25,7 +25,7 @@ export const useProductStore = defineStore({
                     headers:{
                         'Accept' : 'application/json',
                         'Content-Type': 'application/json',
-                        // "Authorization":`Bearer ${this.userStore.token}`,
+                        // "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
                 })
                 .then(response =>{
@@ -112,6 +112,62 @@ export const useProductStore = defineStore({
                 formErrors = error.response.data.errors;
             })
             return formErrors;
+        },
+        async addFavoriteProduct(productId) {
+            console.log(productId);
+            await axios.post('http://localhost:8000/api/addfavorite',{'product_id':productId},{
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    },
+                })
+                .then(response=>{
+                    console.log(response);
+                    console.log("succes");
+                })
+                .catch(error=>{
+                    console.log(error);
+                    // formErrors = error.response.data.errors;
+                })
+        },
+        async getFavoriteProducts() {
+            let favProducts = [];
+            await axios.get('http://localhost:8000/api/getfavorite',{
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    },
+                })
+                .then(response=>{
+                    console.log("RES",response.data);
+                    // favProducts = response.data;
+                    favProducts = response.data.map(f => f.product_id) 
+                    // return response.data;
+                })
+                .catch(error=>{
+                    console.log(error);
+                    favProducts = [];
+                })
+                console.log(favProducts);
+                // favorites.includes(this.index)
+            return favProducts;
+        },
+        async deleteFavoriteProduct(productId) {
+            await axios.post('http://localhost:8000/api/deletefavorite',{'product_id':productId},{
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    },
+                })
+                .then(response=>{
+                    console.log("Deleted",response.data);
+                })
+                .catch(error=>{
+                    console.log(error);
+                })
         },
         
     }

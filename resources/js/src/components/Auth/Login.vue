@@ -18,10 +18,10 @@ export default {
     methods:{
         async postFormData (){         
             this.formErrors = await this.userStore.login(this.formData.email, this.formData.password);
-            console.log("🚀 ~ file: Login.vue:22 ~ postFormData ~ this.formErrors:", this.formErrors)
+            // console.log("🚀 ~ file: Login.vue:22 ~ postFormData ~ this.formErrors:", this.formErrors)
             if(!this.formErrors)
             {
-                console.log("🚀 ~ file: Login.vue:23 ~ postFormData ~ this.formErrors:", this.formErrors)
+                // console.log("🚀 ~ file: Login.vue:23 ~ postFormData ~ this.formErrors:", this.formErrors)
                 this.formErrors = {};
                 this.$emit('closeLogin');
             }

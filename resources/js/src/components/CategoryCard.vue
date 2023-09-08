@@ -1,8 +1,6 @@
 <script>
-import {mapState} from 'pinia'
-
-import router from '../router';
 import { useUserStore } from '../store/user';
+import { useProductStore } from '../store/product';
 export default {
     props: {
         name: {
@@ -21,6 +19,10 @@ export default {
             type: Number,
             required: true,
         },
+        handleFavorite: {
+            type: Boolean,
+            required: true,
+        },
         url:{
             type:String,
             required:true,
@@ -28,24 +30,30 @@ export default {
     },
     data() {
         return {
-            isFavorite: false,
             userStore:useUserStore(),
+            productStore:useProductStore(),
+            isFavorite:this.handleFavorite,
         };
     },
     methods:{
-        addFavorite(event){
+        async changeFavorite(event,pId){
             event.stopPropagation();
             if(this.userStore.token)
+            {
+                if(this.isFavorite)
+                    await this.productStore.deleteFavoriteProduct(pId);
+                
+                else
+                    await this.productStore.addFavoriteProduct(pId);
+                
                 this.isFavorite = !this.isFavorite;
+            }
             else {
                 console.log('Please login to add to favorites');
                 this.userStore.showAlert = true;
             }
         }
     },
-    // computed:{
-    //     ...mapState(useUserStore,['showAlert'])
-    // }
 };
 </script>
 
@@ -62,7 +70,7 @@ export default {
                 :src="url"
             />
             <!-- Favorite Button -->
-            <button class="absolute top-3 right-3 z-10" @click="addFavorite($event)">
+            <button class="absolute top-3 right-3 z-10" @click="changeFavorite($event,index)">
                 <div
                     class="relative hover:opacity-80 transition cursor-pointer"
                 >

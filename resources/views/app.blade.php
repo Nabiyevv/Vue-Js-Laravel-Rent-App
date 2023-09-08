@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravel + Vite + Vue</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
+        {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"> --}}
         {{-- @vite('resources/css/app.css') --}}
         @vite('resources/js/src/main.js')
-        
+
     </head>
     <body class="dark:bg-gray-800 dark:text-white">
         <div id="app"></div>

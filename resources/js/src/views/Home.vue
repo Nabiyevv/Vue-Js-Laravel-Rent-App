@@ -13,12 +13,13 @@
             class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8"
         >
             <CategorCart
-                v-for="(product, index) in products"
+                v-for="product in products"
                 :name="product.title"
                 :location="product.city"
                 :cost="product.price"
                 :url="product.image"
-                :index="index"
+                :index="product.id"
+                :handleFavorite="favoriteProducts.includes(product.id)"
             />
         </div>
     </Container>
@@ -31,7 +32,7 @@ import Container from "../components/Container.vue";
 import { useUserStore } from "../store/user.js";
 import { useProductStore } from "../store/product.js";
 import AlertBar from '../components/Alert.vue';
-
+import axios from "axios";
 export default {
     data() {
         return {
@@ -39,6 +40,7 @@ export default {
             userStore: useUserStore(),
             productStore: useProductStore(),
             isLoading:true,
+            favoriteProducts:[],
         };
     },
     components: {
@@ -49,12 +51,10 @@ export default {
     },
     async created() {
         await this.productStore.getProducts();
+        if(this.userStore.token)
+            this.favoriteProducts  = await this.productStore.getFavoriteProducts();  
         this.products = this.productStore.products;
         this.isLoading = false;
-        console.log(
-            "🚀 ~ file: Home.vue:33 ~ created ~ this.products:",
-            this.products
-        );
     },
 };
 </script>

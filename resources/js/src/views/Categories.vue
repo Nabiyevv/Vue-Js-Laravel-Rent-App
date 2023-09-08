@@ -12,12 +12,13 @@
             class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8"
         >
             <CategorCart
-                v-for="(product, index) in products"
+                v-for="product in products"
                 :name="product.title"
                 :location="product.city"
                 :cost="product.price"
                 :url="product.image"
-                :index="index"
+                :index="product.id"
+                :isFavorite="true"
             />
         </div>
     </Container>
@@ -44,14 +45,13 @@ export default {
     },
     watch:{
         async '$route.params.categoryName'(newVal,oldVal){
-            console.log("🚀 ~ file: CategornewValies.vue:40 ~ newVal:", newVal)
             await this.getData(newVal);
         }
     },
     async created() {
-        await this.productStore.getProductsByCategory(this.$route.params.categoryName);
+        await this.productStore.getProductsByCategory(this.$route.params.categoryName);       
         this.products = this.productStore.products;
-        console.log("🚀 ~ file: Categories.vue:54 ~ created ~ this.products:", this.products)
+        // console.log("🚀 ~ file: Categories.vue:54 ~ created ~ this.products:", this.products)
         this.isLoading = false;
     },
     methods:{

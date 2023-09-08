@@ -11,6 +11,7 @@
             <SearchInput />
         </div>
         <div class="flex justify-between gap-5 items-center">
+            <button @click="testReq">getProducts</button>
             <RentButton />
             <div class="flex">
                 <div v-if="token" class="flex gap-5">
@@ -44,6 +45,7 @@ import SearchInput from "./SearchInput.vue";
 import RentButton from "./Auth/RentButton.vue";
 import { mapState } from "pinia";
 import { useUserStore } from "../store/user";
+import { useProductStore } from "../store/product";
 import axios from "axios";
 import SettignsButton from "./SettignsButton.vue";
 export default {
@@ -52,6 +54,7 @@ export default {
         return {
             isDark: false,
             userStore: useUserStore(),
+            productStore: useProductStore(),
             isVisible: false,
         };
     },
@@ -71,11 +74,11 @@ export default {
             // await axios.get('')
             // await axios.post('http://localhost:8000/api/products/2',null,{
             await axios
-                .get("http://localhost:8000/api/products", {
+                .get("http://localhost:8000/api/products", null,{
                     headers: {
-                        Accept: "application/json",
+                        'Accept': "application/json",
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${this.token}`,
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
                     },
                 })
                 .then((response) => {
