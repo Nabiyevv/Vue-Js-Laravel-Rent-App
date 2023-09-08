@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FavoriteProducts;
+use App\Models\FavoriteProduct;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 class FavoriteProductController extends Controller
@@ -11,25 +12,33 @@ class FavoriteProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return Cache::remember('favorite_products',60,fn () => FavoriteProducts::all());
+        // FavoriteProduct::query()->delete();
+        // return  Cache::remember('favorite_products',60,
+        // fn () => FavoriteProduct::where('user_id',$request->user()->id)->orderBy('created_at', 'desc')->get());
+       
+        return response()->json(FavoriteProduct::where('user_id',$request->user()->id)
+        ->orderBy('created_at', 'desc')->get());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(int $user_id,Request $request)
+    public function store(Request $request)
     {
-        //
-        return FavoriteProducts::where('user_id',$user_id)->orderBy('created_at', 'desc')->get();
+        $product = FavoriteProduct::firstOrCreate([
+            'user_id'=>$request->user()->id,
+            'product_id'=>$request->product_id
+        ]);
+        // FavoriteProduct::where('user_id','1')->delete();
+        return response()->json(['product'=>$product],Response::HTTP_CREATED);
     }
     
     /**
      * Display the specified resource.
      */
-    public function show(FavoriteProducts $favoriteProduct)
+    public function show(FavoriteProduct $favoriteProduct)
     {
         //
     }
@@ -37,7 +46,7 @@ class FavoriteProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FavoriteProducts $favoriteProduct)
+    public function update(Request $request, FavoriteProduct $favoriteProduct)
     {
         //
     }
@@ -45,10 +54,9 @@ class FavoriteProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $user_id,int $product_id, FavoriteProducts $favoriteProduct)
+    public function destroy(Request $request)
     {
         //
-        
-        return FavoriteProducts::where(['user_id' => $user_id,'product_id' => $product_id])->delete();
+        return FavoriteProduct::where('product_id',$request->product_id)->delete();
     }
 }
