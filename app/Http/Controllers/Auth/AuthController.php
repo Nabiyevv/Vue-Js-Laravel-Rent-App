@@ -33,6 +33,8 @@ class AuthController extends Controller
         if (! $user || ! Hash::check($request->password, $user->password)) {
             return response()->json(['errors' => 'Wrong Username or Password !'],HttpResponse::HTTP_UNAUTHORIZED);            
         }
+        // // Auth::user();
+        // auth()->login($user);
         $token = $user->createToken('app')->plainTextToken;
         return response()->json(['token' => $token,'userData'=>$user],HttpResponse::HTTP_OK);
     }
@@ -61,6 +63,6 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->user()->tokens()->delete();
-        return response()->json(['message' => 'Logged out'],HttpResponse::HTTP_OK);
+        return response()->json(['message' => 'Logged out',auth()->user()],HttpResponse::HTTP_OK);
     }
 }
