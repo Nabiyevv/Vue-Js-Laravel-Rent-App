@@ -15,19 +15,19 @@ const router = createRouter({
     //   // which is lazy-loaded when the route is visited.
     //   component: () => import('../views/AboutView.vue')
     // }
-    // {
-    //   path:'/items/:id',
-    //   // beforeEnter: (to, from, next) => {
-    //   //   if(localStorage.getItem('token') == null) {
-    //   //     console.log("unauthorized");
-    //   //     next({name:'home'});
-    //   //   } 
-    //   //   else 
-    //   //   next();
-    //   // },
-    //   name:'categoryItem',
-    //   component:()=> import('../views/CartItem.vue')
-    // },
+    {
+      path:'/items/:id',
+      // beforeEnter: (to, from, next) => {
+      //   if(localStorage.getItem('token') == null) {
+      //     console.log("unauthorized");
+      //     next({name:'home'});
+      //   } 
+      //   else 
+      //   next();
+      // },
+      name:'categoryItem',
+      component:()=> import('../views/CartItem.vue')
+    },
     {
       path:'/category/:categoryName',
       component: () => import('../views/Categories.vue'),
