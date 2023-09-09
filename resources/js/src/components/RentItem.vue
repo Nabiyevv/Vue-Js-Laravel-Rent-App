@@ -48,8 +48,8 @@ export default {
     >
         <div
             class="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto"
-            :class="'fade-in-up'"
-        >
+            >
+            <!-- :class="'fade-in-up'" -->
             <div class="h-full">
                 <div
                     class="h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full dark:bg-gray-950 bg-white outline-none focus:outline-none"

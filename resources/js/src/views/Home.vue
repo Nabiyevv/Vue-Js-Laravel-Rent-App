@@ -51,6 +51,7 @@ export default {
     },
     async created() {
         await this.productStore.getProducts();
+        this.isLoading = false;
         if(this.userStore.token)
         {
             if( this.productStore.cache['/api/products/favorite']){
@@ -62,7 +63,6 @@ export default {
             }
         }
         this.products = this.productStore.products;
-        this.isLoading = false;
     },
 };
 </script>

@@ -31,7 +31,13 @@ export default {
     >
         Rent Stuff
     </button>
-    <LoginForm v-if="isMenuActive" @closeLogin="isMenuActive  = false" @openRegister="isRegisterActive = true"/>
-    <RegisterForm v-if="isRegisterActive " @closeRegister="isRegisterActive = false" @openLogin="isMenuActive  = true" />
-    <RentItem v-if="isMenuActive && token" @closeLogin="isMenuActive = false"/>
+    <transition name="fade">
+        <LoginForm v-if="isMenuActive && !token" @closeLogin="isMenuActive  = false" @openRegister="isRegisterActive = true"/>
+    </transition>
+    <transition name="fade">
+        <RegisterForm v-if="isRegisterActive " @closeRegister="isRegisterActive = false" @openLogin="isMenuActive  = true" />
+    </transition>
+    <transition name="fade">
+        <RentItem v-if="isMenuActive && token" @closeLogin="isMenuActive = false"/>
+    </transition>
 </template>

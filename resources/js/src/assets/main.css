@@ -47,9 +47,12 @@
     }
 }
 
-.fade-in-up {
+.fade-enter-active {
     animation: fade-in-up 0.5s ease;
 }
+
+
+
 @keyframes fade-in-down {
     from {
         opacity: 1;
@@ -57,10 +60,73 @@
     }
     to {
         opacity: 0;
-        transform: translate3d(0, 300px, 0);
+        transform: translate3d(0, 500px, 0);
     }
 }
 
-.fade-in-down {
+.fade-leave-active {
     animation: fade-in-down 0.5s ease;
+}
+/* .fade-enter-to {
+    background-color: red;
+} */
+
+
+
+@keyframes show-settings {
+    from {
+        transform: translateY(-50%) scaleY(0);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scaleY(1); 
+        opacity: 1;
+    }
+}
+.settings-enter-active {
+    animation: show-settings 0.3s cubic-bezier(.61,-0.53,.43,1.43);
+}
+
+.settings-leave-active {
+    animation: show-settings 0.3s cubic-bezier(.61,-0.53,.43,1.43) reverse;
+}
+
+
+
+
+
+
+.nested-enter-active, .nested-leave-active {
+	transition: all 0.3s ease-in-out;
+}
+/* delay leave of parent element */
+.nested-leave-active {
+  transition-delay: 0.25s;
+}
+
+.nested-enter-from,
+.nested-leave-to {
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+/* we can also transition nested elements using nested selectors */
+.nested-enter-active .inner,
+.nested-leave-active .inner { 
+  transition: all 0.3s ease-in-out;
+}
+/* delay enter of nested element */
+.nested-enter-active .inner {
+	transition-delay: 0.25s;
+}
+
+.nested-enter-from .inner,
+.nested-leave-to .inner {
+  transform: translateX(30px);
+  /*
+  	Hack around a Chrome 96 bug in handling nested opacity transitions.
+    This is not needed in other browsers or Chrome 99+ where the bug
+    has been fixed.
+  */
+  opacity: 0.001;
 }

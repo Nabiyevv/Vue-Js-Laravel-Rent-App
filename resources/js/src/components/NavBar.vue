@@ -17,6 +17,7 @@
                 <div v-if="token" class="flex gap-5">
                     <button
                         @click="isVisible = !isVisible"
+                        @blur="isVisible = false"
                         class="relative z-10 flex items-center p-2 text-sm text-gray-600 bg-gray-100 border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
                     >
                         <span class="mx-1">Options</span>
@@ -32,12 +33,18 @@
                             ></path>
                         </svg>
                     </button>
-                    <SettignsButton v-if="isVisible" />
+                    <transition name="settings">
+                        <SettignsButton v-show="isVisible" />
+                    </transition>
                 </div>
             </div>
         </div>
     </nav>
 </template>
+<style>
+
+
+</style>
 
 <script>
 import { useDark } from "@vueuse/core";

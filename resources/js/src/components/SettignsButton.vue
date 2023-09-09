@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center absolute">
+    <div class="flex justify-center absolute ease-custom">
         <div class="relative inline-block mb-20">
             <!-- Dropdown toggle button -->
 
@@ -44,16 +44,18 @@
                     {{ isDark ? "Dark" : "Light" }}
                 </button>
 
-                <div
-                    class="cursor-pointer block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+                <button
+                    class="cursor-pointer text-left inline-block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                     @click="logout"
                 >
                     Sign Out
-                </div>
+                </button>
             </div>
         </div>
     </div>
 </template>
+
+
 
 <script>
 import { useDark, useToggle } from "@vueuse/core";
