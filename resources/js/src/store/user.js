@@ -1,4 +1,5 @@
 import {defineStore} from 'pinia'
+import {useProductStore} from './product'
 import axios from 'axios';
 // axios.defaults.headers.common['Authorization'] = `Bearer ${acces_token}`;
 export const useUserStore = defineStore({
@@ -21,18 +22,17 @@ export const useUserStore = defineStore({
                     // withCredentials:true,
                     credentials: 'include',
                 })
-                .then(response => {                    
+                .then(async response => {                    
                     this.token = response.data.token;
                     this.user = response.data.userData;
-                    console.log("🚀 ~ file: user.js:27 ~ login ~ this.user:", this.user)
                     localStorage.setItem('user_data',JSON.stringify(this.user));
                     localStorage.setItem('token',this.token);
-                    console.log(response.data);
                 })
                 .catch(error => {
                     console.log('user',error.response.data.errors);
                     formErrors = error.response.data.errors;
                 });
+                
                 return formErrors;    
         },
         async register(formData) {

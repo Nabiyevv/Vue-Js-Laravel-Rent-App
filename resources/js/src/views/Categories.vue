@@ -18,7 +18,7 @@
                 :cost="product.price"
                 :url="product.image"
                 :index="product.id"
-                :isFavorite="true"
+                :handleFavorite="favoriteProducts.includes(product.id)"
             />
         </div>
     </Container>
@@ -29,13 +29,15 @@ import CategoryBar from "../components/CategoryBar.vue";
 import CategorCart from "../components/CategoryCard.vue";
 import Container from "../components/Container.vue";
 import { useProductStore } from "../store/product.js";
-
+import { useUserStore } from "../store/user.js";
 export default {
     data() {
         return {
             products: {},
             productStore: useProductStore(),
             isLoading:true,
+            favoriteProducts:[],
+            userStore:useUserStore(),
         };
     },
     components: {
@@ -51,7 +53,16 @@ export default {
     async created() {
         await this.productStore.getProductsByCategory(this.$route.params.categoryName);       
         this.products = this.productStore.products;
-        // console.log("🚀 ~ file: Categories.vue:54 ~ created ~ this.products:", this.products)
+        if(this.userStore.token)
+        {
+            if( this.productStore.cache['/api/products/favorite']){
+                this.favoriteProducts = this.productStore.cache['/api/products/favorite'];
+            }
+            else{
+                this.favoriteProducts  = await this.productStore.getFavoriteProducts();  
+                this.productStore.cache['/api/products/favorite'] = this.favoriteProducts;
+            }
+        }
         this.isLoading = false;
     },
     methods:{
@@ -61,8 +72,6 @@ export default {
             await this.productStore.getProductsByCategory(catId);
             this.products = this.productStore.products;
             this.isLoading = false;
-            // console.log("🚀 ~ file: Categories.vue:50 ~ catId:", catId)
-            // console.log("🚀 ~ file: Categories.vue:52 ~ this.products:", this.products)
         }
     },
 };

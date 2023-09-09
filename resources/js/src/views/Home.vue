@@ -52,7 +52,15 @@ export default {
     async created() {
         await this.productStore.getProducts();
         if(this.userStore.token)
-            this.favoriteProducts  = await this.productStore.getFavoriteProducts();  
+        {
+            if( this.productStore.cache['/api/products/favorite']){
+                this.favoriteProducts = this.productStore.cache['/api/products/favorite'];
+            }
+            else{
+                this.favoriteProducts  = await this.productStore.getFavoriteProducts();  
+                this.productStore.cache['/api/products/favorite'] = this.favoriteProducts;
+            }
+        }
         this.products = this.productStore.products;
         this.isLoading = false;
     },
