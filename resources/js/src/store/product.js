@@ -82,7 +82,7 @@ export const useProductStore = defineStore({
                 }
             })
             .then(response =>{
-                console.log("ProductById",response.data);
+                // console.log("ProductById",response.data);
                 resData = response.data;
                 this.cache[url] = resData;
                 return resData;

@@ -88,7 +88,7 @@ class ProductController extends Controller
         // $product = Product::select(['id','title','description','image','location','city','category','price','count','user_id'])->with('user:id,name')->findOrFail($productId);
         // return response()->json($product,Response::HTTP_OK);
         $product = Cache::remember('product_by_'.$productId,30*30,fn () =>Product::select(['id','title','description',
-        'image','location','city','category','price','count','user_id'])->with('user:id,name,contact')->findOrFail($productId));
+        'image','location','city','category','price','count','user_id'])->with('user:id,name,contact,avatar')->findOrFail($productId));
         return response()->json($product,Response::HTTP_OK);
     }
 
