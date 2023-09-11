@@ -36,10 +36,10 @@ const router = createRouter({
     //   path:'/favorite',
     //   component: () => import('../views/FavoriteProducts.vue'),
     // },
-    // {
-    //   path:'/profile',
-    //   component: () => import('../views/ProfileSetting.vue'),
-    // },
+    {
+      path:'/profile',
+      component: () => import('../views/ProfileSetting.vue'),
+    },
 
   ]
 })
