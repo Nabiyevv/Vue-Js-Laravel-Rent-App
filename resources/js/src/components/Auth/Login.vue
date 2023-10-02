@@ -16,14 +16,17 @@ export default {
     },
     components:{RegisterForm},
     methods:{
-        async postFormData (){         
+        async postFormData (){      
             this.formErrors = await this.userStore.login(this.formData.email, this.formData.password);
+             
             // console.log("🚀 ~ file: Login.vue:22 ~ postFormData ~ this.formErrors:", this.formErrors)
             if(!this.formErrors)
             {
                 // console.log("🚀 ~ file: Login.vue:23 ~ postFormData ~ this.formErrors:", this.formErrors)
+                console.log("Worked");
+                this.$emit('closeLogin')
                 this.formErrors = {};
-                this.$emit('closeLogin');
+                
             }
         }
     },
@@ -32,14 +35,14 @@ export default {
 
 <template>
         <div
-            class="log first-letter:z-[9999] justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none bg-neutral-800/70"
+            class="first-letter:z-[9999] justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none bg-neutral-800/70"
         >
-            <div  
+            <div
             :class=" 'fade-in-up' "
-                class="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto"
+            class="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto"
             >
-                <div class="h-full">
-                    <div
+            <div class="h-full">
+                <div
                         class="h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full dark:bg-gray-950 bg-white outline-none focus:outline-none"
                     >
                         <div

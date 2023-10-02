@@ -7,13 +7,17 @@ import {useUserStore} from '../../store/user'
 export default {
     data() {
         return {
-            isMenuActive : false,
+            isModalActive : false,
             isRegisterActive: false,
+            isRentItemActive:false,
         };
     },
     methods:{
         toggleModal(){
-            this.isMenuActive  = true;
+            this.isModalActive = true;
+            if (this.token) {
+                this.isRentItemActive=true;
+            }
         }
     },
     computed:{
@@ -31,13 +35,13 @@ export default {
     >
         Rent Stuff
     </button>
-    <transition name="fade">
-        <LoginForm v-if="isMenuActive && !token" @closeLogin="isMenuActive  = false" @openRegister="isRegisterActive = true"/>
+    <transition name="fade" >
+        <LoginForm v-if="isModalActive && !token" @closeLogin="()=>{isModalActive = false}" @openRegister="isRegisterActive = true"/>
     </transition>
     <transition name="fade">
-        <RegisterForm v-if="isRegisterActive " @closeRegister="isRegisterActive = false" @openLogin="isMenuActive  = true" />
+        <RegisterForm v-if="isRegisterActive " @closeRegister="isRegisterActive = false" @openLogin="isModalActive = true" />
     </transition>
     <transition name="fade">
-        <RentItem v-if="isMenuActive && token" @closeLogin="isMenuActive = false"/>
+        <RentItem v-if="token && isRentItemActive" @closeRentModal="isRentItemActive = false"/>
     </transition>
 </template>
