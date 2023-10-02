@@ -58,7 +58,7 @@ export default {
                         class="flex items-center p-6 rounded-t justify-center relative border-b-[1px]"
                     >
                         <button
-                            @click="$emit('closeLogin')"
+                            @click="$emit('closeRentModal')"
                             class="p-1 border-0 hover:opacity-70 transition absolute left-9"
                         >
                             <svg

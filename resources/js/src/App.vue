@@ -35,9 +35,11 @@ export default {
 <template>
 
     <NavBarVue />
-    <div class="relative z-50 mr-10" v-if="userStore.showAlert">
-        <AlertBar title="Please login to add to favorites!" type="danger" />
-    </div>
+    <Transition name="fade">
+        <!-- <div class="relative z-50 mr-10 " > -->
+            <AlertBar v-show="userStore.showAlert" title="Please login to add to favorites!" type="danger" />
+        <!-- </div> -->
+    </Transition>
 
     <RouterView />
 

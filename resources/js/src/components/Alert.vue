@@ -1,5 +1,5 @@
 <template>
-    <div class="absolute right-0 top-3 fade-in-up">
+    <div class="fixed right-0 top-8 fade-in-up z-50">
         <div
             v-if="alertName == 'error'"
             id="alert-2"

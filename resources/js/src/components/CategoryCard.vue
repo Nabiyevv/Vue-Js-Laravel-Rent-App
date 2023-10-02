@@ -59,7 +59,7 @@ export default {
 
 
 <template>
-    <div @click="$router.push(`/items/${index}`)" class="col-sp cursor-pointer group p-3 rounded-xl dark:shadow-[0_3px_10px_rgb(0,0,0,0.5)] shadow-[0_3px_10px_rgb(0,0,0,0.5)]">
+    <div @click="$router.push(`/items/${index}`)" class="col-sp cursor-pointer group p-3 rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.5)]">
         <div class="aspect-square w-full relative overflow-hidden rounded-xl">
             <img
                 alt="Listing"
