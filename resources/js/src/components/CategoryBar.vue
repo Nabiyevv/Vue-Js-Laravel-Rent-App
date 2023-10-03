@@ -3,7 +3,7 @@
         class="sticky top-[79px] z-40 bg-white dark:text-white dark:bg-gray-900 w-full border-b border-gray-200 dark:border-gray-600 py-4 max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4 flex justify-between"
     >
     <!--  @click="productStore.getProductsByCategory(category.id)" -->
-        <div v-for="(category, index) in categories">
+        <div v-for="category in categories">
             <RouterLink
             :to="`/category/${category.id}`"
             class="flex flex-col justify-center items-center"

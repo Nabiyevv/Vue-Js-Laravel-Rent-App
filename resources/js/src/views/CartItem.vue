@@ -1,16 +1,21 @@
 <template>
-    <div class="ml-8">
+    <div class="mx-8">
         <div class="flex-row my-8 ml-5">
             <div class="text-3xl font-bold" v-text="product.title"></div>
             <div class="text-lg font-medium" v-text="product.city"></div>
         </div>
-        <div class="flex gap-10 items-center">
-            <div class="max-w-4xl rounded-3xl shadow-[0_3px_10px_rgb(0,0,0,0.5)]">
-                <img class="rounded-2xl" :src="product?.image" alt="Product Image" />
+        <div class="xl:flex gap-10 items-center">
+            <div
+                class="max-w-4xl mb-6 rounded-3xl shadow-[0_3px_10px_rgb(0,0,0,0.5)]"
+            >
+                <img
+                    class="rounded-2xl"
+                    :src="product?.image"
+                    alt="Product Image"
+                />
             </div>
-            <div class="flex-row max-w-2xl">
+            <div class="flex-row 2xl:max-w-2xl lg:max-w-lg">
                 <div class="flex gap-5 items-center">
-                    <div class="font-medium text-lg" v-text="product.user?.name"></div>
                     <img
                         class="flex-shrink-0 object-cover mx-1 rounded-full dark:invert w-12"
                         :src="product.user?.avatar"
@@ -23,6 +28,10 @@
                         src="/storage/avatar/defaultProfile.svg"
                         :alt="product.user?.name + ' avatar'"
                     />
+                    <div
+                        class="font-medium text-lg"
+                        v-text="product.user?.name"
+                    ></div>
                 </div>
                 <div class="mt-4 mb-6">
                     <div class="text-xl">Category</div>
@@ -45,29 +54,54 @@
                 </div>
             </div>
         </div>
+        <div class="flex justify-between max-w-xl items-center">
+            <div class="text-xl font-bold">{{ product?.price }} ₼</div>
+
+            <div class="text-base font-medium">
+                Quantity : &nbsp; {{ product?.count }}
+            </div>
+            <a
+                class="font-medium"
+                :href="`https://wa.me/${contact}`"
+                target="_blank"
+                >{{ product?.user?.contact }}</a
+            >
+        </div>
     </div>
 </template>
 
 <script>
 import { useUserStore } from "../store/user";
 import { useProductStore } from "../store/product";
-
+import { getCategories } from "../components/Categories.vue";
 export default {
     data() {
         return {
             userStore: useUserStore(),
             productStore: useProductStore(),
             product: [],
+            categories: getCategories(),
+            contact:'',
         };
     },
     async created() {
         this.product = await this.productStore.getProductsById(
             this.$route.params.id
         );
+        this.contact = this.formatPhoneNumber(this.product.user.contact);
         console.log(
             "🚀 ~ file: CartItem.vue:18 ~ created ~ this.products:",
             this.product
         );
     },
+    methods:{
+        formatPhoneNumber(phoneNumber) {
+            let cleaned = phoneNumber.replace(/\D/g, ""); // remove non-digits
+            cleaned = cleaned.substring(0); // remove leading +
+            return cleaned;
+        },
+        
+    },
+
 };
 </script>

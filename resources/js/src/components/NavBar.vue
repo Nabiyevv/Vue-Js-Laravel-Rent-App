@@ -11,7 +11,7 @@
             <SearchInput />
         </div>
         <div class="flex justify-between gap-5 items-center">
-            <button @click="testReq">getProducts</button>
+            <!-- <button @click="testReq">getProducts</button> -->
             <RentButton />
             <div class="flex">
                 <div v-if="token" class="flex gap-5">
