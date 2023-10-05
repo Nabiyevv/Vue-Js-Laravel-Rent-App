@@ -67,11 +67,8 @@
                 />
             </svg>
             <span class="sr-only">Info</span>
-            <div class="ml-3 text-sm font-medium">
-                A simple info alert with an
-                <a href="#" class="font-semibold underline hover:no-underline"
-                    >example link</a
-                >. Give it a click if you like.
+            <div class="ml-3 text-sm font-medium mr-3">
+                {{ alertTitle }}
             </div>
             <button
                 type="button"
