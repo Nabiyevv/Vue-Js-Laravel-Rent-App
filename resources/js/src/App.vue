@@ -9,6 +9,8 @@ export default {
         return {
             userStore: useUserStore(),
             timeOut: null,
+            alertType:'',
+            alertTitle:'',
         };
     },
     components: {
@@ -27,6 +29,14 @@ export default {
                 clearTimeout(this.timeOut);
                 this.timeOut = null;
             }
+        },
+        "userStore.alertType"(newValue) {
+            console.log("🚀 ~ file: App.vue:34 ~ newValue:", newValue)
+            this.alertType = newValue;
+        },
+        "userStore.alertTitle"(newValue) {
+            console.log("🚀 ~ file: App.vue:38 ~ newValue:", newValue)
+            this.alertTitile = newValue;
         }
     },
 };
@@ -37,7 +47,7 @@ export default {
     <NavBarVue />
     <Transition name="fade">
         <!-- <div class="relative z-50 mr-10 " > -->
-            <AlertBar v-show="userStore.showAlert" title="Please login to add to favorites!" type="danger" />
+            <AlertBar v-if="userStore.showAlert" :title="alertTitle" type="danger" />
         <!-- </div> -->
     </Transition>
 

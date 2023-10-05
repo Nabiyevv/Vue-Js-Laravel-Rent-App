@@ -8,6 +8,8 @@ export const useUserStore = defineStore({
         user: JSON.parse(localStorage.getItem('user_data')) || '',
         token:localStorage.getItem('token') || '',
         showAlert:false,
+        alertType:'',
+        alertTitle:'',
     }),
     actions: {
         async login(email,password) {
@@ -40,11 +42,10 @@ export const useUserStore = defineStore({
             await axios.post('/api/register',formData)
             .then((response)=>{
                 console.log(response);
-                ssss
             })
             .catch((error)=>{
                 console.log(error.response.data.errors);
-                formErrors = error.response.data.errors;
+                 
             })
             return formErrors;
         },
@@ -61,23 +62,49 @@ export const useUserStore = defineStore({
                 this.user = null;
                 localStorage.removeItem('token');
                 localStorage.removeItem('user_data');
+                window.location.reload();
             })
             .catch(error => {
                 console.log(error);
             });
         },
         async userData(){
+            let user = null;
             await axios.get('http://localhost:8000/api/user',{
                 headers:{
                     "Authorization":`Bearer ${this.token}`
                 }
             })
             .then(response => {
-                console.log(response.data);
+                user = response.data;
+                // console.log(response.data);
+             
             })
             .catch(error => {
                 console.log(error);
             });
+            return user;
+        },
+        async updateUser(formData){
+            // console.log("🚀 ~ file: user.js:87 ~ updateUser ~ formData:", formData);
+            let formErrors ={};
+            await axios.post('http://localhost:8000/api/user',{'name':formData?.name,'contact':formData?.contact,'avatar':formData?.avatar},{
+                headers:{
+                    'Accept' : 'application/json',
+                    'Content-Type': 'multipart/form-data',
+                    "Authorization":`Bearer ${this.token}`
+                }
+            })
+            .then(response => {
+                console.log("🚀 ~ file: user.js:95 ~ updateUser ~ response:", response)
+                this.user = response.data[0];
+                localStorage.setItem('user_data',JSON.stringify(this.user));
+            })
+            .catch(error => {
+                // console.log(error.response.data.errors);
+                formErrors = error.response.data.errors;
+            });
+            return formErrors;
         }
     }
 });

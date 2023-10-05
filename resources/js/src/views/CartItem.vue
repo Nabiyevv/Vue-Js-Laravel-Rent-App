@@ -17,14 +17,14 @@
             <div class="flex-row 2xl:max-w-2xl lg:max-w-lg">
                 <div class="flex gap-5 items-center">
                     <img
-                        class="flex-shrink-0 object-cover mx-1 rounded-full dark:invert w-12"
+                        class="flex-shrink-0 object-cover mx-1 rounded-full w-12 h-12"
                         :src="product.user?.avatar"
                         v-if="product.user?.avatar"
                         :alt="product.user?.name + ' avatar'"
                     />
                     <img
                         v-else
-                        class="flex-shrink-0 object-cover mx-1 rounded-full dark:invert w-12"
+                        class="flex-shrink-0 object-cover mx-1 rounded-full dark:invert w-12 h-12"
                         src="/storage/avatar/defaultProfile.svg"
                         :alt="product.user?.name + ' avatar'"
                     />

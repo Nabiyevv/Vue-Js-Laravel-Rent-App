@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FavoriteProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductsByCategoryController;
+use App\Http\Controllers\UserController;
 use App\Models\FavoriteProducts;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -27,11 +28,8 @@ Route::middleware('auth:sanctum')->group(function(){
     
     Route::post('/logout',[AuthController::class,'logout']);
 
-    Route::post('/user', function (Request $request) {
-        $request->cookie();
-        return $request->user();
-        // return Cookie::forget('laravel_session');
-    });
+    Route::get('/user', [UserController::class,'index']);
+    Route::post('/user', [UserController::class,'update']);
     Route::post('/addproduct',[ProductController::class,'store']);
 
     Route::post('/addfavorite',[FavoriteProductController::class,'store']);
