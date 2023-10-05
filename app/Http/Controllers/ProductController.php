@@ -16,8 +16,6 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        //all(['id','title','image','city']);
-        //  $products = Product::select(['id','title','image','city','price'])->paginate();
         $products = Cache::remember('products',120,fn () => Product::select(['id','title','image','city','price'])->paginate());
         return response()->json(['products'=>$products],Response::HTTP_OK);
     }
@@ -80,13 +78,7 @@ class ProductController extends Controller
      */
     public function show(string $productId,Request $request)
     {
-        // /** 
-        //  *@var object $product
-        // */
-        
-        // $product = Product::select(['id','title','description','image','location','city','category','price','count','user_id as owner_id'])->with('owner:id,name')->findOrFail($productId);
-        // $product = Product::select(['id','title','description','image','location','city','category','price','count','user_id'])->with('user:id,name')->findOrFail($productId);
-        // return response()->json($product,Response::HTTP_OK);
+
         $product = Cache::remember('product_by_'.$productId,30*30,fn () =>Product::select(['id','title','description',
         'image','location','city','category','price','count','user_id'])->with('user:id,name,contact,avatar')->findOrFail($productId));
         return response()->json($product,Response::HTTP_OK);
