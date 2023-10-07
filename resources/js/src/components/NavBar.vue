@@ -11,13 +11,11 @@
             <SearchInput />
         </div>
         <div class="flex justify-between gap-5 items-center">
-            <!-- <button @click="testReq">getProducts</button> -->
             <RentButton />
             <div class="flex">
                 <div v-if="token" class="flex gap-5">
                     <button
                         @click="isVisible = !isVisible"
-                        @blur="isVisible = false"
                         class="relative z-10 flex items-center p-2 text-sm text-gray-600 bg-gray-100 border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
                     >
                         <span class="mx-1">Options</span>
@@ -34,7 +32,10 @@
                         </svg>
                     </button>
                     <transition name="settings">
-                        <SettignsButton v-show="isVisible" />
+                        <SettignsButton
+                            v-show="isVisible"
+                            ref="settingsMenue"
+                        />
                     </transition>
                 </div>
             </div>
@@ -42,8 +43,6 @@
     </nav>
 </template>
 <style>
-
-
 </style>
 
 <script>
@@ -55,6 +54,7 @@ import { useUserStore } from "../store/user";
 import { useProductStore } from "../store/product";
 import axios from "axios";
 import SettignsButton from "./SettignsButton.vue";
+import { onClickOutside } from "@vueuse/core";
 export default {
     name: "ThemeToggle",
     data() {
@@ -76,28 +76,17 @@ export default {
         async logout() {
             await this.userStore.logout();
         },
-
-        async testReq() {
-            // await axios.get('')
-            // await axios.post('http://localhost:8000/api/products/2',null,{
-            await axios
-                .get("http://localhost:8000/api/products", null,{
-                    headers: {
-                        'Accept': "application/json",
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    },
-                })
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
+        handleClickOutside()
+        {
+            if(this.isVisible)
+                this.isVisible = !this.isVisible;
+        }
     },
     computed: {
         ...mapState(useUserStore, ["token"]),
+    },
+    mounted() {
+        onClickOutside(this.$el, this.handleClickOutside);
     },
 };
 </script>
