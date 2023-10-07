@@ -46,11 +46,8 @@ export default {
 
     <NavBarVue />
     <Transition name="fade">
-        <!-- <div class="relative z-50 mr-10 " > -->
-            <AlertBar v-if="userStore.showAlert" :title="alertTitle" type="danger" />
-        <!-- </div> -->
+            <AlertBar v-if="userStore.showAlert" :title="userStore.alertTitle" :type="userStore.alertType" />
     </Transition>
-
     <RouterView />
 
 </template>

@@ -49,10 +49,9 @@ export default {
                 this.isFavorite = !this.isFavorite;
             }
             else {
-                console.log('Please login to add to favorites');
                 this.userStore.showAlert = true;
-                this.userStore.alertType = 'danger';
                 this.userStore.alertTitle = 'Please login to add to favorites !';
+                this.userStore.alertType = 'danger';
             } 
         }
     },

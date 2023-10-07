@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed right-0 top-8 fade-in-up z-50">
+    <div class="fixed right-10 top-8 fade-in-up z-50">
         <div
             v-if="alertName == 'error'"
             id="alert-2"
@@ -17,12 +17,9 @@
                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
                 />
             </svg>
-            <span class="sr-only">Info</span>
-            <div class="ml-3 text-sm font-medium">
-                A simple info alert with an
-                <a href="#" class="font-semibold underline hover:no-underline"
-                    >example link</a
-                >. Give it a click if you like.
+            <span class="sr-only">Error</span>
+            <div class="ml-3 text-sm font-medium mr-3">
+                {{ alertTitle }}
             </div>
             <button
                 type="button"
@@ -66,7 +63,7 @@
                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
                 />
             </svg>
-            <span class="sr-only">Info</span>
+            <span class="sr-only">Success</span>
             <div class="ml-3 text-sm font-medium mr-3">
                 {{ alertTitle }}
             </div>
