@@ -119,7 +119,7 @@ export default {
 			userAvatar:null,
             userStore: useUserStore(),
 			previewImage:null,
-            formErrors:{},
+            formErrors:null,
         };
     },
     components: {
@@ -144,7 +144,14 @@ export default {
             if(this.userAvatar)
                 this.user.avatar = this.userAvatar;
             this.formErrors =  await this.userStore.updateUser(this.user);
-            // console.log("🚀 ~ file: ProfileSetting.vue:138 ~ postFormData ~ this.formErrors:", this.formErrors)
+
+            if(!this.formErrors)
+            {
+                this.userStore.showAlert = true;
+                this.userStore.alertTitle = 'User Updated Successfully !';
+                this.userStore.alertType = 'success';
+            }
+            console.log("🚀 ~ file: ProfileSetting.vue:138 ~ postFormData ~ this.formErrors:", this.formErrors)
 		}
     },
 };
