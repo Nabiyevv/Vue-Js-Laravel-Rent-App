@@ -31,11 +31,9 @@ export default {
             }
         },
         "userStore.alertType"(newValue) {
-            console.log("🚀 ~ file: App.vue:34 ~ newValue:", newValue)
             this.alertType = newValue;
         },
         "userStore.alertTitle"(newValue) {
-            console.log("🚀 ~ file: App.vue:38 ~ newValue:", newValue)
             this.alertTitile = newValue;
         }
     },

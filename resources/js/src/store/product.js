@@ -20,17 +20,8 @@ export const useProductStore = defineStore({
             }
             else
             {
-                await axios.get(`http://localhost:8000/api/products?page=${pageId}`,{
-                // await axios.get(`http://localhost:8000/api/products/category/${categoryId}/?page=${pageId}`,{
-                    headers:{
-                        'Accept' : 'application/json',
-                        'Content-Type': 'application/json',
-                        // "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    }
-                })
+                await axios.get(`/api/products?page=${pageId}`)
                 .then(response =>{
-                    // console.log("Products",response.data);
-                    // localStorage.setItem('all_products',JSON.stringify(response.data.products));
                     this.products = response.data.products.data;
                     this.totalPages = response.data.products.last_page;
                     this.curretPage = response.data.products.current_page;
@@ -46,18 +37,11 @@ export const useProductStore = defineStore({
             if(this.cache[url])
             {
                 this.products = this.cache[url];
-                console.log("HAve");
             }
             else
             {
-                await axios.get(`http://localhost:8000/api/products/category/${categoryId}`,{
-                    headers:{
-                        'Accept' : 'application/json',
-                        'Content-Type': 'application/json',
-                    }
-                })
+                await axios.get(`/api/products/category/${categoryId}`)
                 .then(response =>{
-                    console.log("ProductByCategoryId",response.data);
                     this.products = response.data.data;
                     this.cache[url] = this.products;
                     this.totalPages = response.data.last_page;
@@ -75,14 +59,8 @@ export const useProductStore = defineStore({
             {
                 return this.cache[url];
             }
-            await axios.get(`http://localhost:8000/api/products/${productId}`,{
-                headers:{
-                    'Accept' : 'application/json',
-                    'Content-Type': 'application/json',
-                }
-            })
+            await axios.get(`/api/products/${productId}`)
             .then(response =>{
-                // console.log("ProductById",response.data);
                 resData = response.data;
                 this.cache[url] = resData;
                 return resData;
@@ -96,13 +74,7 @@ export const useProductStore = defineStore({
         async addProduct(formData) {
             console.log(formData);
             let formErrors={};
-            await axios.post('http://localhost:8000/api/addproduct',formData,{
-                headers: {
-                    'Accept' : 'application/json',
-                    'Content-Type': 'multipart/form-data',
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
-                },
-            })
+            await axios.post('/api/addproduct',formData)
             .then(response=>{
                 console.log(response.data);
                 this.cache = {};
@@ -115,53 +87,28 @@ export const useProductStore = defineStore({
         },
         async addFavoriteProduct(productId) {
             console.log(productId);
-            await axios.post('http://localhost:8000/api/addfavorite',{'product_id':productId},{
-                    headers: {
-                        'Accept' : 'application/json',
-                        'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    },
-                })
+            await axios.post('/api/addfavorite',{'product_id':productId})
                 .then(response=>{
-                    console.log(response);
                     console.log("succes");
                 })
                 .catch(error=>{
                     console.log(error);
-                    // formErrors = error.response.data.errors;
                 })
         },
         async getFavoriteProducts() {
             let favProducts = [];
-            await axios.get('http://localhost:8000/api/getfavorite',{
-                    headers: {
-                        'Accept' : 'application/json',
-                        'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    },
-                })
+            await axios.get('/api/getfavorite')
                 .then(response=>{
-                    console.log("RES",response.data);
-                    // favProducts = response.data;
                     favProducts = response.data.map(f => f.product_id) 
-                    // return response.data;
                 })
                 .catch(error=>{
-                    console.log(error);
                     favProducts = [];
                 })
                 console.log(favProducts);
-                // favorites.includes(this.index)
             return favProducts;
         },
         async deleteFavoriteProduct(productId) {
-            await axios.post('http://localhost:8000/api/deletefavorite',{'product_id':productId},{
-                    headers: {
-                        'Accept' : 'application/json',
-                        'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
-                    },
-                })
+            await axios.post('/api/deletefavorite',{'product_id':productId})
                 .then(response=>{
                     console.log("Deleted",response.data);
                 })

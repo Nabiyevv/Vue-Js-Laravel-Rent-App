@@ -7,11 +7,17 @@
             <div
                 class=" absolute right-0 z-20 w-56 pt-2 mt-2 overflow-hidden bg-gray-100 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.4)] dark:bg-gray-800"
             >
-                <a
-                    href="#"
+                <RouterLink
+                    to="/profile"
                     class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                     <img
+                        class="flex-shrink-0 object-cover mx-1 rounded-full w-12 h-12"
+                        :src="userStore.user?.avatar"
+                        v-if="userStore.user?.avatar"
+                        :alt="userStore.user?.name + ' avatar'"
+                    />
+                    <img v-else
                         class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9 dark:invert"
                         src="/storage/avatar/defaultProfile.svg"
                         alt="Avatar"
@@ -26,16 +32,16 @@
                             {{ userStore.user.email }}
                         </p>
                     </div>
-                </a>
+                </RouterLink>
 
                 <hr class="border-gray-200 dark:border-gray-700" />
 
-                <RouterLink
-                    to="/profile"
+                <!-- <RouterLink
+                    to="/favorite"
                     class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
-                    view profile
-                </RouterLink>
+                    Favorites
+                </RouterLink> -->
 
                 <button
                     class="cursor-pointer text-left inline-block w-full px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -74,7 +80,6 @@ export default {
     },
     methods: {
         toggleTheme() {
-            console.log(this.userStore.user);
             this.isDark = !this.isDark;
         },
         async logout() {

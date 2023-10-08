@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(),
@@ -7,24 +8,8 @@ const router = createRouter({
       name: 'home',
       component: () => import('../views/Home.vue')
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
     {
       path:'/items/:id',
-      // beforeEnter: (to, from, next) => {
-      //   if(localStorage.getItem('token') == null) {
-      //     console.log("unauthorized");
-      //     next({name:'home'});
-      //   } 
-      //   else 
-      //   next();
-      // },
       name:'categoryItem',
       component:()=> import('../views/CartItem.vue')
     },
@@ -38,6 +23,16 @@ const router = createRouter({
     // },
     {
       path:'/profile',
+      beforeEnter: async (to, from, next) => {
+        try{
+          const data = await axios.get('/api/user')
+          next();
+        }
+        catch{
+          next({name:'home'});
+        }
+       
+      },
       component: () => import('../views/ProfileSetting.vue'),
     },
 

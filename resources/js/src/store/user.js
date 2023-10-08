@@ -14,15 +14,8 @@ export const useUserStore = defineStore({
     actions: {
         async login(email,password) {
                 let formErrors ='';
-                await axios.get('http://localhost:8000/sanctum/csrf-cookie')
-                await axios.post('http://localhost:8000/api/login', {'email':email,'password':password},
-                {
-                    headers: {
-                        'Accept' : 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include',
-                })
+                await axios.get('/sanctum/csrf-cookie')
+                await axios.post('/api/login', {'email':email,'password':password})
                 .then(async response => {
                     window.location.reload();                    
                     this.token = response.data.token;
@@ -31,7 +24,6 @@ export const useUserStore = defineStore({
                     localStorage.setItem('token',this.token);
                 })
                 .catch(error => {
-                    console.log('user',error.response.data.errors);
                     formErrors = error.response.data.errors;
                 });
                 
@@ -45,16 +37,11 @@ export const useUserStore = defineStore({
             })
             .catch((error)=>{
                 console.log(error.response.data.errors);
-                 
             })
             return formErrors;
         },
         async logout() {
-            await axios.post('http://localhost:8000/api/logout',{},{
-                headers:{
-                    "Authorization":`Bearer ${this.token}`
-                }
-            })
+            await axios.post('/api/logout')
             .then(response => {
                 window.location.reload();
                 this.token = '';
@@ -68,11 +55,7 @@ export const useUserStore = defineStore({
         },
         async userData(){
             let user = null;
-            await axios.get('http://localhost:8000/api/user',{
-                headers:{
-                    "Authorization":`Bearer ${this.token}`
-                }
-            })
+            await axios.get('/api/user')
             .then(response => {
                 user = response.data;
             })
@@ -83,11 +66,9 @@ export const useUserStore = defineStore({
         },
         async updateUser(formData){
             let formErrors = null;
-            await axios.post('http://localhost:8000/api/user',{'name':formData?.name,'contact':formData?.contact,'avatar':formData?.avatar},{
+            await axios.post('/api/user',{'name':formData?.name,'contact':formData?.contact,'avatar':formData?.avatar},{
                 headers:{
-                    'Accept' : 'application/json',
                     'Content-Type': 'multipart/form-data',
-                    "Authorization":`Bearer ${this.token}`
                 }
             })
             .then(response => {

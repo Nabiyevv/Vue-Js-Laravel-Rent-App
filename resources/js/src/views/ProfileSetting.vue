@@ -127,7 +127,6 @@ export default {
     },
     async created() {
         this.user = await this.userStore.userData();
-        // console.log(this.user);
     },
     methods: {
         onFileChange(e) {
@@ -135,12 +134,8 @@ export default {
 			this.userAvatar = file;
 			const image = URL.createObjectURL(file);
 			this.previewImage = image;
-            console.log(image);
         },
 		async postFormData(){
-            // this.userStore.showAlert = true;
-            // this.userStore.alertType = 'success';
-            // this.userStore.alertTitle = 'Profile Updated Successfully';
             if(this.userAvatar)
                 this.user.avatar = this.userAvatar;
             this.formErrors =  await this.userStore.updateUser(this.user);
@@ -151,7 +146,6 @@ export default {
                 this.userStore.alertTitle = 'User Updated Successfully !';
                 this.userStore.alertType = 'success';
             }
-            console.log("🚀 ~ file: ProfileSetting.vue:138 ~ postFormData ~ this.formErrors:", this.formErrors)
 		}
     },
 };

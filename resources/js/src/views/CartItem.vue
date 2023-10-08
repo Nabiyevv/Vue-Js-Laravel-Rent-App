@@ -89,10 +89,6 @@ export default {
             this.$route.params.id
         );
         this.contact = this.formatPhoneNumber(this.product.user.contact);
-        console.log(
-            "🚀 ~ file: CartItem.vue:18 ~ created ~ this.products:",
-            this.product
-        );
     },
     methods:{
         formatPhoneNumber(phoneNumber) {
